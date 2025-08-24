@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 **Step 1: Clone the Repository**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/abhiramk20514/CloudSentinel---Cloud-Security-Misconfiguration-Scanner
 cd CloudSentinel
 ```
 
@@ -102,7 +102,7 @@ CloudSentinel/
 ---
 
 ## GitHub Repository
-`<your-repo-url>`
+https://github.com/abhiramk20514/CloudSentinel---Cloud-Security-Misconfiguration-Scanner
 
 ---
 
