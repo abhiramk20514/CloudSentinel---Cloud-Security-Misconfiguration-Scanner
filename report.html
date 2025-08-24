@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cloud Misconfiguration Report</title>
+<style>
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; padding: 20px; }
+h1 { margin-bottom: 0; }
+.badge { display:inline-block; padding:4px 8px; border-radius:8px; background:#eee; margin-right:6px; }
+.sev { padding:2px 6px; border-radius:6px; font-weight:700; }
+.SEVERE { }
+.CRITICAL { background:#ffdddd; border:1px solid #ff4444; }
+.HIGH { background:#ffe8d6; border:1px solid #ff8844; }
+.MEDIUM { background:#fff6c4; border:1px solid #e6b800; }
+.LOW { background:#e8f5e9; border:1px solid #66bb6a; }
+table { width:100%; border-collapse: collapse; margin-top: 14px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+th { background: #f6f6f6; }
+.summary { margin-top: 12px; }
+</style>
+</head>
+<body>
+<h1>Cloud Misconfiguration Report</h1>
+<div class="summary">
+<span class="badge"><b>Source:</b> sample_config.json</span>
+<span class="badge"><b>Generated:</b> 2025-08-24 08:06 UTC</span>
+<span class="badge"><b>Min Severity:</b> LOW</span>
+<span class="badge"><b>Total Score:</b> 75</span>
+<span class="badge">CRITICAL: 3</span>
+<span class="badge">HIGH: 6</span>
+<span class="badge">MEDIUM: 1</span>
+<span class="badge">LOW: 0</span>
+</div>
+<table>
+<thead><tr><th>Service</th><th>Finding</th><th>Severity</th><th>Resource</th><th>Remediation</th><th>Control</th></tr></thead>
+<tbody>
+<tr>
+<td>S3</td>
+<td><b>Public S3 bucket</b><br><small>Bucket &#x27;customer-data&#x27; is publicly accessible (ACL/Policy).</small></td>
+<td><span class="sev CRITICAL">CRITICAL</span></td>
+<td>customer-data</td>
+<td>Make bucket private; restrict access via IAM; use VPC endpoints.</td>
+<td>CIS AWS 2.1.1</td>
+</tr>
+<tr>
+<td>S3</td>
+<td><b>S3 without encryption</b><br><small>Bucket &#x27;customer-data&#x27; lacks default server-side encryption.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>customer-data</td>
+<td>Enable SSE-S3 or SSE-KMS.</td>
+<td>CIS AWS 2.1.5</td>
+</tr>
+<tr>
+<td>S3</td>
+<td><b>S3 without versioning</b><br><small>Bucket &#x27;customer-data&#x27; does not have object versioning enabled.</small></td>
+<td><span class="sev MEDIUM">MEDIUM</span></td>
+<td>customer-data</td>
+<td>Enable versioning to protect against accidental deletion/overwrite.</td>
+<td>Best Practice</td>
+</tr>
+<tr>
+<td>IAM</td>
+<td><b>Overly permissive IAM policy</b><br><small>Policy &#x27;AdminPolicy&#x27; allows * on *.</small></td>
+<td><span class="sev CRITICAL">CRITICAL</span></td>
+<td>AdminPolicy</td>
+<td>Replace wildcards with least-privilege actions/resources.</td>
+<td>CIS AWS 1.22</td>
+</tr>
+<tr>
+<td>SecurityGroup</td>
+<td><b>Wide-open ingress</b><br><small>SG &#x27;default-sg&#x27; allows TCP 22 (SSH) from 0.0.0.0/0.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>default-sg</td>
+<td>Restrict ingress to specific CIDRs or use bastion/VPN.</td>
+<td>CIS AWS 4.1</td>
+</tr>
+<tr>
+<td>SecurityGroup</td>
+<td><b>IPv6 wide-open ingress</b><br><small>SG &#x27;default-sg&#x27; allows IPv6 from ::/0 on port 443.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>default-sg</td>
+<td>Restrict IPv6 ingress to trusted ranges.</td>
+<td>CIS AWS 4.1</td>
+</tr>
+<tr>
+<td>KMS</td>
+<td><b>KMS encryption disabled</b><br><small>KMS not enabled for the account/services where required.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>-</td>
+<td>Enable KMS and use CMKs for sensitive data.</td>
+<td>CIS AWS 3.3</td>
+</tr>
+<tr>
+<td>CloudTrail</td>
+<td><b>CloudTrail disabled</b><br><small>CloudTrail is not enabled for auditing/forensics.</small></td>
+<td><span class="sev CRITICAL">CRITICAL</span></td>
+<td>-</td>
+<td>Enable multi-region CloudTrail with log file validation.</td>
+<td>CIS AWS 3.1</td>
+</tr>
+<tr>
+<td>RDS</td>
+<td><b>Publicly accessible RDS</b><br><small>RDS &#x27;payments-db&#x27; is public.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>payments-db</td>
+<td>Disable public access; place in private subnets.</td>
+<td>CIS AWS 4.2</td>
+</tr>
+<tr>
+<td>RDS</td>
+<td><b>RDS storage not encrypted</b><br><small>RDS &#x27;payments-db&#x27; lacks storage encryption.</small></td>
+<td><span class="sev HIGH">HIGH</span></td>
+<td>payments-db</td>
+<td>Enable storage encryption at rest.</td>
+<td>CIS AWS 2.4</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

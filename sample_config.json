@@ -1,0 +1,82 @@
+{
+  "s3_buckets": [
+    {
+      "name": "customer-data",
+      "public": true,
+      "encryption": false,
+      "versioning": false
+    },
+    {
+      "name": "logs-archive",
+      "public": false,
+      "encryption": true,
+      "versioning": true
+    }
+  ],
+  "iam_policies": [
+    {
+      "name": "AdminPolicy",
+      "statements": [
+        {
+          "effect": "Allow",
+          "action": "*",
+          "resource": "*"
+        },
+        {
+          "effect": "Deny",
+          "action": "s3:DeleteObject",
+          "resource": "*"
+        }
+      ]
+    },
+    {
+      "name": "ScopedPolicy",
+      "statements": [
+        {
+          "effect": "Allow",
+          "action": [
+            "s3:GetObject"
+          ],
+          "resource": [
+            "arn:aws:s3:::logs-archive/*"
+          ]
+        }
+      ]
+    }
+  ],
+  "security_groups": [
+    {
+      "name": "default-sg",
+      "inbound": [
+        {
+          "cidr": "0.0.0.0/0",
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "cidr": "::/0",
+          "port": 443,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
+  "kms": {
+    "enabled": false
+  },
+  "cloudtrail": {
+    "enabled": false
+  },
+  "rds_instances": [
+    {
+      "name": "payments-db",
+      "public": true,
+      "storage_encrypted": false
+    },
+    {
+      "name": "analytics-db",
+      "public": false,
+      "storage_encrypted": true
+    }
+  ]
+}
